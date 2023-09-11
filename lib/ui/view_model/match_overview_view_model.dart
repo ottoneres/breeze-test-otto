@@ -1,4 +1,4 @@
-import 'package:breeze_case/core/navigation_service.dart';
+import 'package:breeze_case/core/services/navigation_service.dart';
 import 'package:breeze_case/core/providers/providers.dart';
 import 'package:breeze_case/core/repositories/match_repo.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier, debugPrint;

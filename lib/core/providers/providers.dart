@@ -1,7 +1,7 @@
 import 'package:breeze_case/core/api/api.dart';
-import 'package:breeze_case/core/navigation_service.dart';
+import 'package:breeze_case/core/services/navigation_service.dart';
 import 'package:breeze_case/core/repositories/match_repo.dart';
-import 'package:breeze_case/core/router.dart';
+import 'package:breeze_case/core/router/router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final apiProvider = Provider((ref) => Api());
