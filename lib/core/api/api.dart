@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class Api {
   final Map<String, String> _headers = {'Accept': 'application/json'};
-  final String hostUrl = 'http://<YOUR_URL>:9000/v4.0.5/';
+  final String hostUrl = 'http://<YOUR_IP>:9000/v4.0.5/';
 
   Future<ApiResponse> get(String url) async {
     try {
