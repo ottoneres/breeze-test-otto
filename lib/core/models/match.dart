@@ -6,6 +6,20 @@ part 'match.g.dart';
 
 @JsonSerializable()
 class Match {
+  /// Constructor for a [Match] between two users.
+  const Match({
+    required this.id,
+    required this.createdAt,
+    required this.matchedUsers,
+    required this.city,
+    required this.dealType,
+    this.deal,
+    this.plannedOn,
+    this.paidAt,
+    this.availabilityGivenAt,
+    this.confirmedAt,
+  });
+
   /// The uuid of this match.
   final String id;
 
@@ -36,18 +50,7 @@ class Match {
   /// Set if confirmed to the moment of confirming.
   final int? confirmedAt;
 
-  /// Constructor for a [Match] between two users.
-  const Match(
-      {required this.id,
-      required this.createdAt,
-      required this.matchedUsers,
-      required this.city,
-      required this.dealType,
-      this.deal,
-      this.plannedOn,
-      this.paidAt,
-      this.availabilityGivenAt,
-      this.confirmedAt});
+  factory Match.fromJson(Map<String, dynamic> json) => _$MatchFromJson(json);
 
   /// Returns the current user in the match.
   MatchedUser get thisUser =>
@@ -57,8 +60,6 @@ class Match {
   MatchedUser get otherUser =>
       matchedUsers.firstWhere((mu) => mu.userId != userId);
 
-  factory Match.fromJson(Map<String, dynamic> json) => _$MatchFromJson(json);
-
   Map<String, dynamic> toJson() => _$MatchToJson(this);
 
   /// Returns a list of [Match] objects when provided with serialized JSON containing a list.
@@ -67,10 +68,10 @@ class Match {
       [];
 
   @override
-  bool operator ==(Object other) => other is Match && other.id == id;
+  int get hashCode => id.hashCode;
 
   @override
-  int get hashCode => id.hashCode;
+  bool operator ==(Object other) => other is Match && other.id == id;
 
   @override
   String toString() => toJson().toString();

@@ -21,14 +21,14 @@ class MatchOverviewPage extends ConsumerWidget {
         onRefresh: () =>
             model.updateMatches(refreshController.refreshCompleted),
         child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 16),
           physics: const BouncingScrollPhysics(),
-          itemCount: model.matchRepo.matches.length,
+          padding: const EdgeInsets.symmetric(vertical: 16),
           itemBuilder: (context, index) => MatchCard(
             model.matchRepo.matches[index],
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             onPressed: () => model.navigateToMatch(index),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           ),
+          itemCount: model.matchRepo.matches.length,
         ),
       ),
     );

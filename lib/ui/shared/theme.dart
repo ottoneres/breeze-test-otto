@@ -5,79 +5,129 @@ import 'package:google_fonts/google_fonts.dart';
 class BreezeTheme {
   /// Returns the theme of the app.
   static ThemeData themeData = ThemeData(
-    primaryColor: kDarkBlue,
+    cardColor: kWhiteColor,
     colorScheme: const ColorScheme(
-      surface: kWhiteColor,
-      background: kWhiteColor,
       brightness: Brightness.light,
-      error: kPinkColor,
-      onBackground: kDarkBlue,
-      onError: kWhiteColor,
-      onPrimary: kWhiteColor,
-      onSecondary: kWhiteColor,
-      onSurface: kDarkBlue,
       primary: kDarkBlue,
+      onPrimary: kWhiteColor,
       secondary: kDarkBlue,
+      onSecondary: kWhiteColor,
+      error: kPinkColor,
+      onError: kWhiteColor,
+      background: kWhiteColor,
+      onBackground: kDarkBlue,
+      surface: kWhiteColor,
+      onSurface: kDarkBlue,
     ),
+    primaryColor: kDarkBlue,
+    scaffoldBackgroundColor: kWhiteColor,
+    fontFamily: GoogleFonts.dmSans().fontFamily,
     iconTheme: const IconThemeData(color: kDarkBlue),
     primaryIconTheme: const IconThemeData(color: kDarkBlue),
+    textTheme: TextTheme(
+      headlineLarge: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 30,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineMedium: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 28,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineSmall: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 24,
+        fontWeight: FontWeight.w500,
+      ),
+      titleLarge: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 22,
+        fontWeight: FontWeight.w500,
+      ),
+      titleMedium: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+      ),
+      titleSmall: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+      ),
+      bodyLarge: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+      bodyMedium: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      bodySmall: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
+      labelLarge: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+      labelMedium: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      labelSmall: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 11,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: kWhiteColor,
       foregroundColor: kDarkBlue,
-      actionsIconTheme: IconThemeData(color: kDarkBlue),
       elevation: 0,
       iconTheme: IconThemeData(color: kDarkBlue),
+      actionsIconTheme: IconThemeData(color: kDarkBlue),
     ),
-    scaffoldBackgroundColor: kWhiteColor,
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       color: kWhiteColor,
-      elevation: 0,
       shadowColor: kGreyColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
     ),
-    textTheme: TextTheme(
-      headlineLarge: GoogleFonts.dmSans(
-          fontSize: 30, fontWeight: FontWeight.w500, color: kDarkBlue),
-      headlineMedium: GoogleFonts.dmSans(
-          fontSize: 28, fontWeight: FontWeight.w500, color: kDarkBlue),
-      headlineSmall: GoogleFonts.dmSans(
-          fontSize: 24, fontWeight: FontWeight.w500, color: kDarkBlue),
-      titleLarge: GoogleFonts.dmSans(
-          fontSize: 22, fontWeight: FontWeight.w500, color: kDarkBlue),
-      titleMedium: GoogleFonts.dmSans(
-          fontSize: 20, fontWeight: FontWeight.w500, color: kDarkBlue),
-      titleSmall: GoogleFonts.dmSans(
-          fontSize: 18, fontWeight: FontWeight.w500, color: kDarkBlue),
-      bodyLarge: GoogleFonts.dmSans(
-          fontSize: 16, fontWeight: FontWeight.w500, color: kDarkBlue),
-      bodyMedium: GoogleFonts.dmSans(
-          fontSize: 14, fontWeight: FontWeight.w500, color: kDarkBlue),
-      bodySmall: GoogleFonts.dmSans(
-          fontSize: 12, fontWeight: FontWeight.w500, color: kDarkBlue),
-      labelLarge: GoogleFonts.dmSans(
-          fontSize: 16, fontWeight: FontWeight.w500, color: kDarkBlue),
-      labelMedium: GoogleFonts.dmSans(
-          fontSize: 14, fontWeight: FontWeight.w500, color: kDarkBlue),
-      labelSmall: GoogleFonts.dmSans(
-          fontSize: 11, fontWeight: FontWeight.w500, color: kDarkBlue),
-    ),
-    cardColor: kWhiteColor,
     dialogTheme: DialogTheme(
-        titleTextStyle: GoogleFonts.dmSans(
-            fontSize: 20, fontWeight: FontWeight.w700, color: kPinkColor),
-        contentTextStyle: GoogleFonts.dmSans(
-            fontSize: 16, fontWeight: FontWeight.w400, color: kDarkBlue),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      titleTextStyle: GoogleFonts.dmSans(
+        color: kPinkColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+      ),
+      contentTextStyle: GoogleFonts.dmSans(
+        color: kDarkBlue,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: kPinkColor,
         textStyle: GoogleFonts.dmSans(
-            fontSize: 16, fontWeight: FontWeight.w700, color: kPinkColor),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          color: kPinkColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
     ),
-    fontFamily: GoogleFonts.dmSans().fontFamily,
   );
 }

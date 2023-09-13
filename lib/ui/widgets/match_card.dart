@@ -9,13 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MatchCard extends StatelessWidget {
-  const MatchCard(this.match,
-      {this.onPressed,
-      this.padding,
-      this.imagePadding = const EdgeInsets.all(12),
-      this.borderRadius = const BorderRadius.all(Radius.circular(25)),
-      Key? key})
-      : super(key: key);
+  const MatchCard(
+    this.match, {
+    this.onPressed,
+    this.padding,
+    this.imagePadding = const EdgeInsets.all(12),
+    this.borderRadius = const BorderRadius.all(Radius.circular(25)),
+    Key? key,
+  }) : super(key: key);
 
   final Match match;
 
@@ -32,55 +33,75 @@ class MatchCard extends StatelessWidget {
     final List<_DateDetailData> itemsForDate = [
       if (match.deal != null)
         _DateDetailData(
-            match.plannedOn!.toDateFormatOrTodayTomorrow(), AppIcons.calendar),
+          match.plannedOn!.toDateFormatOrTodayTomorrow(),
+          AppIcons.calendar,
+        ),
       _DateDetailData(
-          match.deal != null ? match.deal! : match.city, AppIcons.location),
+        match.deal != null ? match.deal! : match.city,
+        AppIcons.location,
+      ),
       _DateDetailData(match.dealType, AppIcons.walkAndTalk),
     ];
 
     return GestureDetector(
-        onTap: onPressed,
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          color: kWhiteColor,
+          borderRadius: borderRadius,
+          boxShadow: const [BoxShadow(color: kGreyColor, blurRadius: 3)],
+        ),
+        margin: padding,
         child: Container(
-            margin: padding,
-            decoration: BoxDecoration(
-                color: kWhiteColor,
-                borderRadius: borderRadius,
-                boxShadow: const [BoxShadow(color: kGreyColor, blurRadius: 3)]),
-            child: Container(
-                height: 200,
-                width: context.screenWidth,
-                padding: imagePadding,
-                child: Row(children: [
-                  CachedNetworkImage(
-                      imageUrl: match.otherUser.photo,
-                      errorWidget: (_, __, ___) => const SizedBox(
-                          width: 100, height: 100, child: Icon(Icons.error)),
-                      imageBuilder: (_, imageProvider) => Container(
-                          width: 134,
-                          height: 176,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover)))),
-                  const SizedBox(width: 20),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Date details',
-                            style: BreezeTheme.themeData.textTheme.titleSmall),
-                        const SizedBox(height: 10),
-                        for (final info in itemsForDate)
-                          _DateDetailItem(info,
-                              width: context.screenWidth -
-                                  (padding?.horizontal ?? 0) -
-                                  imagePadding.horizontal -
-                                  134 -
-                                  20),
-                      ])
-                ]))));
+          padding: imagePadding,
+          width: context.screenWidth,
+          height: 200,
+          child: Row(children: [
+            CachedNetworkImage(
+              imageUrl: match.otherUser.photo,
+              imageBuilder: (_, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  shape: BoxShape.rectangle,
+                ),
+                width: 134,
+                height: 176,
+              ),
+              errorWidget: (_, __, ___) => const SizedBox(
+                width: 100,
+                height: 100,
+                child: Icon(Icons.error),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Date details',
+                  style: BreezeTheme.themeData.textTheme.titleSmall,
+                ),
+                const SizedBox(height: 10),
+                for (final info in itemsForDate)
+                  _DateDetailItem(
+                    info,
+                    width: context.screenWidth -
+                        (padding?.horizontal ?? 0) -
+                        imagePadding.horizontal -
+                        134 -
+                        20,
+                  ),
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
   }
 }
 
@@ -95,13 +116,14 @@ class _DateDetailItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
       padding: const EdgeInsets.symmetric(vertical: 2),
+      width: width,
       child: Row(children: [
         Container(
-            width: 21,
-            alignment: Alignment.center,
-            child: SvgPicture.asset(data.icon, width: 21, height: 21)),
+          alignment: Alignment.center,
+          width: 21,
+          child: SvgPicture.asset(data.icon, width: 21, height: 21),
+        ),
         const SizedBox(width: 10),
         Flexible(child: Text(data.title)),
       ]),

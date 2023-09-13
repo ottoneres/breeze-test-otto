@@ -11,10 +11,10 @@ final matchOverviewViewModelProvider = Provider((ref) {
 });
 
 class MatchOverviewViewModel extends ChangeNotifier {
+  MatchOverviewViewModel(this.matchRepo, this.navigationService);
+
   final MatchRepository matchRepo;
   final NavigationService navigationService;
-
-  MatchOverviewViewModel(this.matchRepo, this.navigationService);
 
   Future<void> updateMatches(final void Function() onRefreshCompleted) async {
     final bool success = await matchRepo.getMatches();

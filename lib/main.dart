@@ -14,10 +14,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'Breeze Case',
-      debugShowCheckedModeBanner: false,
-      theme: BreezeTheme.themeData,
       routerConfig: ref.read(routerProvider),
+      title: 'Breeze Case',
+      theme: BreezeTheme.themeData,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
