@@ -14,10 +14,12 @@ extension DateTimeExtras on DateTime {
           : '${day.toString().padLeft(2, '0')}/${month.toString().padLeft(2, '0')}';
 
   /// Returns a formatted string of the time of this instance in the format XX:XX.
-  String toTimeFormat() => '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+  String toTimeFormat() =>
+      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
 
   /// Returns a formatted string of the date of this instance in the format DD/MM.
-  String toDateFormatted() => '${day.toString().padLeft(2, '0')}/${month.toString().padLeft(2, '0')}';
+  String toDateFormatted() =>
+      '${day.toString().padLeft(2, '0')}/${month.toString().padLeft(2, '0')}';
 
   bool _isFromNow(int days) {
     final DateTime now = DateTime.now();

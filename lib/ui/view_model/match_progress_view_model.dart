@@ -5,10 +5,11 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final matchProgressControllerProvider =
-    ChangeNotifierProvider.autoDispose.family<MatchProgressController, String>((ref, matchId) {
+final matchProgressControllerProvider = ChangeNotifierProvider.autoDispose
+    .family<MatchProgressController, String>((ref, matchId) {
   final matchRepo = ref.watch(matchRepoProvider);
-  final Match match = matchRepo.matches.firstWhereOrNull((match) => match.id == matchId)!;
+  final Match match =
+      matchRepo.matches.firstWhereOrNull((match) => match.id == matchId)!;
   return MatchProgressController(matchRepo, match);
 });
 

@@ -9,7 +9,8 @@ class Api {
 
   Future<ApiResponse> get(String url) async {
     try {
-      final response = await http.get(Uri.parse('$hostUrl$url'), headers: _headers);
+      final response =
+          await http.get(Uri.parse('$hostUrl$url'), headers: _headers);
       return ApiResponse(
           statusCode: response.statusCode,
           data: json.decode(response.body)['data'],
@@ -21,7 +22,8 @@ class Api {
 
   Future<ApiResponse> post(String url, Map<String, dynamic> body) async {
     try {
-      final response = await http.post(Uri.parse('$hostUrl$url'), headers: _headers, body: body);
+      final response = await http.post(Uri.parse('$hostUrl$url'),
+          headers: _headers, body: body);
       return ApiResponse(
           statusCode: response.statusCode,
           data: json.decode(response.body)['data'],
@@ -33,7 +35,8 @@ class Api {
 
   Future<ApiResponse> put(String url, Map<String, dynamic> body) async {
     try {
-      final response = await http.put(Uri.parse('$hostUrl$url'), headers: _headers, body: body);
+      final response = await http.put(Uri.parse('$hostUrl$url'),
+          headers: _headers, body: body);
       return ApiResponse(
           statusCode: response.statusCode,
           data: json.decode(response.body)['data'],

@@ -50,10 +50,12 @@ class Match {
       this.confirmedAt});
 
   /// Returns the current user in the match.
-  MatchedUser get thisUser => matchedUsers.firstWhere((mu) => mu.userId == userId);
+  MatchedUser get thisUser =>
+      matchedUsers.firstWhere((mu) => mu.userId == userId);
 
   /// Returns the other user in the match.
-  MatchedUser get otherUser => matchedUsers.firstWhere((mu) => mu.userId != userId);
+  MatchedUser get otherUser =>
+      matchedUsers.firstWhere((mu) => mu.userId != userId);
 
   factory Match.fromJson(Map<String, dynamic> json) => _$MatchFromJson(json);
 
@@ -61,7 +63,8 @@ class Match {
 
   /// Returns a list of [Match] objects when provided with serialized JSON containing a list.
   static List<Match> fromList(List<dynamic>? json) =>
-      json?.map((e) => Match.fromJson(e! as Map<String, dynamic>)).toList() ?? [];
+      json?.map((e) => Match.fromJson(e! as Map<String, dynamic>)).toList() ??
+      [];
 
   @override
   bool operator ==(Object other) => other is Match && other.id == id;

@@ -23,5 +23,6 @@ class MatchOverviewViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToMatch(int index) => navigationService.push('/match/${matchRepo.matches[index].id}');
+  void navigateToMatch(int index) =>
+      navigationService.push('/match/${matchRepo.matches[index].id}');
 }

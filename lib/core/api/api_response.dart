@@ -9,11 +9,13 @@ class ApiResponse {
   final String? errorMessage;
 
   /// Creates the response from the [Api] with request's status and body.
-  const ApiResponse({required this.statusCode, this.data = const {}, this.errorMessage});
+  const ApiResponse(
+      {required this.statusCode, this.data = const {}, this.errorMessage});
 
   bool get isSuccessful => statusCode == 200;
 
-  factory ApiResponse.fromJson(Map<String, dynamic> json) => _$ApiResponseFromJson(json);
+  factory ApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$ApiResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiResponseToJson(this);
 

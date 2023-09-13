@@ -27,7 +27,8 @@ class MatchRepository {
     final int matchIndex = matches.indexWhere((match) => match.id == matchId);
     if (matchIndex == -1) return false;
 
-    final ApiResponse response = await api.get(ApiRoutes.paymentForMatch(matchId));
+    final ApiResponse response =
+        await api.get(ApiRoutes.paymentForMatch(matchId));
     if (response.isSuccessful) await _getMatchesById(matchId);
     return response.isSuccessful;
   }
@@ -36,7 +37,8 @@ class MatchRepository {
     final int matchIndex = matches.indexWhere((match) => match.id == matchId);
     if (matchIndex == -1) return false;
 
-    final ApiResponse response = await api.post(ApiRoutes.availabilityForMatch(matchId), {});
+    final ApiResponse response =
+        await api.post(ApiRoutes.availabilityForMatch(matchId), {});
     if (response.isSuccessful) await _getMatchesById(matchId);
     return response.isSuccessful;
   }
@@ -45,7 +47,8 @@ class MatchRepository {
     final int matchIndex = matches.indexWhere((match) => match.id == matchId);
     if (matchIndex == -1) return false;
 
-    final ApiResponse response = await api.put(ApiRoutes.confirmPresenceForMatch(matchId), {});
+    final ApiResponse response =
+        await api.put(ApiRoutes.confirmPresenceForMatch(matchId), {});
     if (response.isSuccessful) await _getMatchesById(matchId);
     return response.isSuccessful;
   }
