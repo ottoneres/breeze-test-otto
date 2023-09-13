@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-final refreshControllerProvider = Provider((ref) => RefreshController(initialRefresh: true));
+final refreshControllerProvider =
+    Provider((ref) => RefreshController(initialRefresh: true));
 
 class MatchOverviewPage extends ConsumerWidget {
   const MatchOverviewPage({super.key});
@@ -17,7 +18,8 @@ class MatchOverviewPage extends ConsumerWidget {
     return Scaffold(
       body: SmartRefresher(
         controller: refreshController,
-        onRefresh: () => model.updateMatches(refreshController.refreshCompleted),
+        onRefresh: () =>
+            model.updateMatches(refreshController.refreshCompleted),
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16),
           physics: const BouncingScrollPhysics(),

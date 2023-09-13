@@ -19,7 +19,9 @@ class MatchProgressPage extends ConsumerWidget {
       appBar: AppBar(),
       body: Column(children: [
         MatchCard(model.match,
-            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25))),
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25))),
         for (final phase in [
           _MatchPhase(
               date: model.match.createdAt,
@@ -28,7 +30,9 @@ class MatchProgressPage extends ConsumerWidget {
               isUnlocked: true),
           _MatchPhase(
               date: model.match.paidAt,
-              title: model.match.paidAt == null ? 'You pay for your date' : 'You paid for your date',
+              title: model.match.paidAt == null
+                  ? 'You pay for your date'
+                  : 'You paid for your date',
               isUnlocked: true,
               isActive: model.match.paidAt == null,
               onPressed: model.match.paidAt == null ? model.payForDate : null),
@@ -40,12 +44,16 @@ class MatchProgressPage extends ConsumerWidget {
                       ? 'Pick a date'
                       : 'You picked a date',
               isUnlocked: model.match.paidAt != null,
-              isActive: model.match.paidAt != null && model.match.plannedOn == null,
-              onPressed: model.match.paidAt != null && model.match.plannedOn == null
-                  ? model.provideAvailabilityForDate
-                  : null),
+              isActive:
+                  model.match.paidAt != null && model.match.plannedOn == null,
+              onPressed:
+                  model.match.paidAt != null && model.match.plannedOn == null
+                      ? model.provideAvailabilityForDate
+                      : null),
           _MatchPhase(
-              date: model.match.confirmedAt != null ? DateTime(model.match.confirmedAt!) : null,
+              date: model.match.confirmedAt != null
+                  ? DateTime(model.match.confirmedAt!)
+                  : null,
               title: model.match.plannedOn == null
                   ? 'Waiting on location reveal'
                   : model.match.confirmedAt == null
@@ -53,21 +61,30 @@ class MatchProgressPage extends ConsumerWidget {
                       : 'The date is confirmed',
               isUnlocked: model.match.plannedOn != null,
               onPressed: model.match.plannedOn != null
-                  ? () => _showConfirmDialog(context, model.confirmPresenceForDate, 'Lorem ipsum dolar sit amet.')
+                  ? () => _showConfirmDialog(
+                      context,
+                      model.confirmPresenceForDate,
+                      'Lorem ipsum dolar sit amet.')
                   : null,
-              isActive: model.match.plannedOn != null && model.match.confirmedAt == null),
+              isActive: model.match.plannedOn != null &&
+                  model.match.confirmedAt == null),
           _MatchPhase(
               date: model.match.plannedOn,
-              title: model.match.plannedOn?.isAfter(DateTime.now()) == true ? 'You’re done!' : 'The day of the date',
+              title: model.match.plannedOn?.isAfter(DateTime.now()) == true
+                  ? 'You’re done!'
+                  : 'The day of the date',
               isLast: true,
               isUnlocked: model.match.confirmedAt != null)
         ])
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: _MatchPhaseElement(phase)),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _MatchPhaseElement(phase)),
       ]),
     );
   }
 
-  Future<void> _showConfirmDialog(BuildContext context, void Function() onConfirm, String text) {
+  Future<void> _showConfirmDialog(
+      BuildContext context, void Function() onConfirm, String text) {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -75,7 +92,9 @@ class MatchProgressPage extends ConsumerWidget {
                 content: Text(text),
                 actionsAlignment: MainAxisAlignment.spaceBetween,
                 actions: [
-                  TextButton(onPressed: Navigator.of(context).pop, child: const Text('Back')),
+                  TextButton(
+                      onPressed: Navigator.of(context).pop,
+                      child: const Text('Back')),
                   TextButton(
                       onPressed: () {
                         onConfirm();
@@ -99,8 +118,9 @@ class _MatchPhaseElement extends StatelessWidget {
           width: 60,
           child: phase.date != null
               ? Text(phase.date!.toDateFormatted(),
-                  style: BreezeTheme.themeData.textTheme.bodySmall!
-                      .copyWith(fontWeight: phase.isUnlocked ? FontWeight.w700 : FontWeight.w400))
+                  style: BreezeTheme.themeData.textTheme.bodySmall!.copyWith(
+                      fontWeight:
+                          phase.isUnlocked ? FontWeight.w700 : FontWeight.w400))
               : null),
       Stack(alignment: Alignment.center, children: [
         Container(
@@ -118,8 +138,14 @@ class _MatchPhaseElement extends StatelessWidget {
                         ? LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [phase.isUnlocked ? kDarkBlue : kGreyColor, Colors.transparent],
-                            stops: const [.5, .5])
+                            colors: [
+                                phase.isUnlocked ? kDarkBlue : kGreyColor,
+                                Colors.transparent
+                              ],
+                            stops: const [
+                                .5,
+                                .5
+                              ])
                         : phase.isActive
                             ? const LinearGradient(
                                 begin: Alignment.topCenter,
@@ -143,17 +169,26 @@ class _MatchPhaseElement extends StatelessWidget {
           child: phase.isActive && phase.onPressed != null
               ? MaterialButton(
                   onPressed: phase.onPressed,
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   color: kPinkColor,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                   child: Text(phase.title,
                       style: BreezeTheme.themeData.textTheme.bodyMedium!
-                          .copyWith(fontSize: 18, color: kWhiteColor, fontWeight: FontWeight.w700)))
+                          .copyWith(
+                              fontSize: 18,
+                              color: kWhiteColor,
+                              fontWeight: FontWeight.w700)))
               : Text(phase.title,
                   style: BreezeTheme.themeData.textTheme.bodyMedium!.copyWith(
                       fontSize: 18,
-                      color: phase.isUnlocked || phase.isActive ? kDarkBlue : kGreyColor,
-                      fontWeight: phase.isUnlocked || phase.isActive ? FontWeight.w700 : FontWeight.w400))),
+                      color: phase.isUnlocked || phase.isActive
+                          ? kDarkBlue
+                          : kGreyColor,
+                      fontWeight: phase.isUnlocked || phase.isActive
+                          ? FontWeight.w700
+                          : FontWeight.w400))),
     ]);
   }
 }

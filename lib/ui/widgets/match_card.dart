@@ -30,8 +30,11 @@ class MatchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_DateDetailData> itemsForDate = [
-      if (match.deal != null) _DateDetailData(match.plannedOn!.toDateFormatOrTodayTomorrow(), AppIcons.calendar),
-      _DateDetailData(match.deal != null ? match.deal! : match.city, AppIcons.location),
+      if (match.deal != null)
+        _DateDetailData(
+            match.plannedOn!.toDateFormatOrTodayTomorrow(), AppIcons.calendar),
+      _DateDetailData(
+          match.deal != null ? match.deal! : match.city, AppIcons.location),
       _DateDetailData(match.dealType, AppIcons.walkAndTalk),
     ];
 
@@ -50,20 +53,24 @@ class MatchCard extends StatelessWidget {
                 child: Row(children: [
                   CachedNetworkImage(
                       imageUrl: match.otherUser.photo,
-                      errorWidget: (_, __, ___) => const SizedBox(width: 100, height: 100, child: Icon(Icons.error)),
+                      errorWidget: (_, __, ___) => const SizedBox(
+                          width: 100, height: 100, child: Icon(Icons.error)),
                       imageBuilder: (_, imageProvider) => Container(
                           width: 134,
                           height: 176,
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
-                              borderRadius: const BorderRadius.all(Radius.circular(12)),
-                              image: DecorationImage(image: imageProvider, fit: BoxFit.cover)))),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover)))),
                   const SizedBox(width: 20),
                   Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Date details', style: BreezeTheme.themeData.textTheme.titleSmall),
+                        Text('Date details',
+                            style: BreezeTheme.themeData.textTheme.titleSmall),
                         const SizedBox(height: 10),
                         for (final info in itemsForDate)
                           _DateDetailItem(info,
@@ -78,7 +85,8 @@ class MatchCard extends StatelessWidget {
 }
 
 class _DateDetailItem extends StatelessWidget {
-  const _DateDetailItem(this.data, {required this.width, Key? key}) : super(key: key);
+  const _DateDetailItem(this.data, {required this.width, Key? key})
+      : super(key: key);
 
   final _DateDetailData data;
 
@@ -90,7 +98,10 @@ class _DateDetailItem extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(children: [
-        Container(width: 21, alignment: Alignment.center, child: SvgPicture.asset(data.icon, width: 21, height: 21)),
+        Container(
+            width: 21,
+            alignment: Alignment.center,
+            child: SvgPicture.asset(data.icon, width: 21, height: 21)),
         const SizedBox(width: 10),
         Flexible(child: Text(data.title)),
       ]),
