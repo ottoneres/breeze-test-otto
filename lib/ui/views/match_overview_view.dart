@@ -1,3 +1,5 @@
+import 'package:breeze_case/ui/shared/build_context_ext.dart';
+import 'package:breeze_case/ui/shared/colors.dart';
 import 'package:breeze_case/ui/view_model/match_overview_view_model.dart';
 import 'package:breeze_case/ui/widgets/match_card.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +18,22 @@ class MatchOverviewPage extends ConsumerWidget {
     final refreshController = ref.watch(refreshControllerProvider);
 
     return Scaffold(
-      body: SmartRefresher(
-        controller: refreshController,
-        onRefresh: () =>
-            model.updateMatches(refreshController.refreshCompleted),
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemBuilder: (context, index) => MatchCard(
-            model.matchRepo.matches[index],
-            onPressed: () => model.navigateToMatch(index),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      body: SafeArea(
+        child: SmartRefresher(
+          controller: refreshController,
+          onRefresh: () =>
+              model.updateMatches(refreshController.refreshCompleted),
+          header: const MaterialClassicHeader(color: kBlueColor),
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            itemBuilder: (context, index) => MatchCard(
+              model.matchRepo.matches[index],
+              onPressed: () => model.navigateToMatch(index),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            ),
+            itemCount: model.matchRepo.matches.length,
           ),
-          itemCount: model.matchRepo.matches.length,
         ),
       ),
     );
