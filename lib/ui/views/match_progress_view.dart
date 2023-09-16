@@ -197,8 +197,8 @@ class _MatchPhaseElement extends StatelessWidget {
                 color: kPinkColor,
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
                 child: Text(
                   phase.title,

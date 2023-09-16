@@ -1,4 +1,3 @@
-import 'package:breeze_case/ui/shared/build_context_ext.dart';
 import 'package:breeze_case/ui/shared/colors.dart';
 import 'package:breeze_case/ui/view_model/match_overview_view_model.dart';
 import 'package:breeze_case/ui/widgets/match_card.dart';
