@@ -1,7 +1,7 @@
 import 'package:breeze_case/core/extensions/datetime.dart';
+import 'package:breeze_case/feature/match_progress/match_progress_provider.dart';
 import 'package:breeze_case/ui/shared/colors.dart';
 import 'package:breeze_case/ui/shared/theme.dart';
-import 'package:breeze_case/ui/view_model/match_progress_view_model.dart';
 import 'package:breeze_case/ui/widgets/match_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,13 +41,16 @@ class MatchProgressPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = ref.watch(matchProgressControllerProvider(matchId));
+    final state =
+        ref.watch(matchProgressControllerProvider(matchId)); // Watching state
+    final notifier =
+        ref.read(matchProgressControllerProvider(matchId).notifier);
 
     return Scaffold(
       appBar: AppBar(),
       body: Column(children: [
         MatchCard(
-          model.match,
+          state.match,
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(25),
             bottomRight: Radius.circular(25),
@@ -55,61 +58,61 @@ class MatchProgressPage extends ConsumerWidget {
         ),
         for (final phase in [
           _MatchPhase(
-            title: 'You matched with ${model.match.otherUser.name}',
-            date: model.match.createdAt,
+            title: 'You matched with ${state.match.otherUser.name}',
+            date: state.match.createdAt,
             isUnlocked: true,
             isFirst: true,
           ),
           _MatchPhase(
-            title: model.match.paidAt == null
+            title: state.match.paidAt == null
                 ? 'You pay for your date'
                 : 'You paid for your date',
-            date: model.match.paidAt,
-            isActive: model.match.paidAt == null,
+            date: state.match.paidAt,
+            isActive: state.match.paidAt == null,
             isUnlocked: true,
-            onPressed: model.match.paidAt == null ? model.payForDate : null,
+            onPressed: state.match.paidAt == null ? notifier.payForDate : null,
           ),
           _MatchPhase(
-            title: model.match.paidAt == null
+            title: state.match.paidAt == null
                 ? 'Date is picked'
-                : model.match.plannedOn == null
+                : state.match.plannedOn == null
                     ? 'Pick a date'
                     : 'You picked a date',
-            date: model.match.availabilityGivenAt,
+            date: state.match.availabilityGivenAt,
             isActive:
-                model.match.paidAt != null && model.match.plannedOn == null,
-            isUnlocked: model.match.paidAt != null,
+                state.match.paidAt != null && state.match.plannedOn == null,
+            isUnlocked: state.match.paidAt != null,
             onPressed:
-                model.match.paidAt != null && model.match.plannedOn == null
-                    ? model.provideAvailabilityForDate
+                state.match.paidAt != null && state.match.plannedOn == null
+                    ? notifier.provideAvailabilityForDate
                     : null,
           ),
           _MatchPhase(
-            title: model.match.plannedOn == null
+            title: state.match.plannedOn == null
                 ? 'Waiting on location reveal'
-                : model.match.confirmedAt == null
+                : state.match.confirmedAt == null
                     ? 'Confirm the date'
                     : 'The date is confirmed',
-            date: model.match.confirmedAt != null
-                ? DateTime(model.match.confirmedAt!)
+            date: state.match.confirmedAt != null
+                ? DateTime(state.match.confirmedAt!)
                 : null,
-            isActive: model.match.plannedOn != null &&
-                model.match.confirmedAt == null,
-            isUnlocked: model.match.plannedOn != null,
-            onPressed: model.match.plannedOn != null
+            isActive: state.match.plannedOn != null &&
+                state.match.confirmedAt == null,
+            isUnlocked: state.match.plannedOn != null,
+            onPressed: state.match.plannedOn != null
                 ? () => _showConfirmDialog(
                       context,
-                      model.confirmPresenceForDate,
+                      notifier.confirmPresenceForDate,
                       'Lorem ipsum dolar sit amet.',
                     )
                 : null,
           ),
           _MatchPhase(
-            title: model.match.plannedOn?.isAfter(DateTime.now()) == true
+            title: state.match.plannedOn?.isAfter(DateTime.now()) == true
                 ? 'You’re done!'
                 : 'The day of the date',
-            date: model.match.plannedOn,
-            isUnlocked: model.match.confirmedAt != null,
+            date: state.match.plannedOn,
+            isUnlocked: state.match.confirmedAt != null,
             isLast: true,
           ),
         ])
