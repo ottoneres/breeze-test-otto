@@ -4,7 +4,7 @@ import 'package:breeze_case/core/api/api_response.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  final String hostUrl = 'http://<YOUR_IP>:9000/v4.0.5/';
+  final String hostUrl = 'http://192.168.178.13:9000/v4.0.5/';
 
   final Map<String, String> _headers = {'Accept': 'application/json'};
 
