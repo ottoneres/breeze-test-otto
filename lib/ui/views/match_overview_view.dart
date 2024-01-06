@@ -1,4 +1,4 @@
-import 'package:breeze_case/feature/match_overview/match_overview_provider.dart';
+import 'package:breeze_case/core/providers/providers.dart';
 import 'package:breeze_case/ui/shared/colors.dart';
 import 'package:breeze_case/ui/widgets/match_card.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ class MatchOverviewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(matchOverviewProvider);
-    final notifier = ref.read(matchOverviewProvider.notifier);
+    final state = ref.watch(matchListProvider);
+    final matchNotifier = ref.read(matchListProvider.notifier);
+    final navigation = ref.read(navigationProvider);
     final refreshController = ref.watch(refreshControllerProvider);
 
     return Scaffold(
@@ -22,7 +23,7 @@ class MatchOverviewPage extends ConsumerWidget {
         child: SmartRefresher(
           controller: refreshController,
           onRefresh: () async {
-            notifier.updateMatches();
+            matchNotifier.updateMatches();
             refreshController.refreshCompleted();
           },
           header: const MaterialClassicHeader(color: kBlueColor),
@@ -30,11 +31,11 @@ class MatchOverviewPage extends ConsumerWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 16),
             itemBuilder: (context, index) => MatchCard(
-              state.matches[index],
-              onPressed: () => notifier.navigateToMatch(index),
+              state[index],
+              onPressed: () => navigation.navigateToMatch(state[index]),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             ),
-            itemCount: state.matches.length,
+            itemCount: state.length,
           ),
         ),
       ),

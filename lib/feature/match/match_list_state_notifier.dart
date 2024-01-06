@@ -1,30 +1,28 @@
-import 'package:breeze_case/core/repositories/match_repo.dart';
-import 'package:breeze_case/core/services/navigation_service.dart';
-import 'package:breeze_case/feature/match_overview/match_overview_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:breeze_case/core/models/match.dart';
-import 'package:flutter/foundation.dart' show debugPrint;
+import 'package:breeze_case/core/repositories/match_repo.dart';
 
-class MatchOverviewNotifier extends StateNotifier<MatchOverviewState> {
+class MatchListNotifier extends StateNotifier<List<Match>> {
   final MatchRepository matchRepo;
-  final NavigationService navigationService;
 
-  MatchOverviewNotifier(this.matchRepo, this.navigationService)
-      : super(MatchOverviewState());
+  MatchListNotifier(this.matchRepo) : super([]);
+
   Future<void> updateMatches() async {
-    final matches = await matchRepo.getMatches();
-    if (matches == true) {
-      sortMatches(matchRepo.matches);
-      state = MatchOverviewState(matches: matchRepo.matches);
-    } else {
-      debugPrint('Error while updating matches');
+    try {
+      final matches = await matchRepo.getMatches();
+      if (matches.isNotEmpty) {
+        sortMatches(matches);
+        state = matches;
+      } else {
+        debugPrint('Error while updating matches');
+      }
+    } catch (e) {
+      // Handle errors appropriately
     }
   }
 
-  void navigateToMatch(int index) {
-    navigationService.push('/match/${state.matches[index].id}');
-  }
-
+  // This sorts the matches by sooner upcoming first, past next but sooner at the top
   void sortMatches(List<Match> matches) {
     matches.sort((a, b) {
       final now = DateTime.now();
