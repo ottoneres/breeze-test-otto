@@ -3,6 +3,7 @@ import 'package:breeze_case/ui/views/match_progress_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
 
 SlideTransition _slideFromBottomTransition(
     BuildContext context,
@@ -38,5 +39,15 @@ final routerProvider = Provider(
       ),
     ],
     initialLocation: '/matches',
+    redirect: (context, state) {
+      debugRouteListener(state);
+      return null; // No redirection, continue to the intended route
+    },
   ),
 );
+
+void debugRouteListener(GoRouterState state) {
+  if (kDebugMode) {
+    print('Routing to: ${state.matchedLocation}');
+  }
+}
