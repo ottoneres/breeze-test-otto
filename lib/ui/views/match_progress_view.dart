@@ -1,5 +1,5 @@
 import 'package:breeze_case/core/extensions/datetime.dart';
-import 'package:breeze_case/feature/match_progress/match_progress_provider.dart';
+import 'package:breeze_case/core/providers/providers.dart';
 import 'package:breeze_case/ui/shared/colors.dart';
 import 'package:breeze_case/ui/shared/theme.dart';
 import 'package:breeze_case/ui/widgets/match_card.dart';
@@ -41,16 +41,14 @@ class MatchProgressPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state =
-        ref.watch(matchProgressControllerProvider(matchId)); // Watching state
-    final notifier =
-        ref.read(matchProgressControllerProvider(matchId).notifier);
+    final currentMatch = ref.watch(currentMatchProvider(matchId));
+    final matchNotifier = ref.read(matchProgressProvider(matchId).notifier);
 
     return Scaffold(
       appBar: AppBar(),
       body: Column(children: [
         MatchCard(
-          state.match,
+          currentMatch,
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(25),
             bottomRight: Radius.circular(25),
@@ -58,61 +56,60 @@ class MatchProgressPage extends ConsumerWidget {
         ),
         for (final phase in [
           _MatchPhase(
-            title: 'You matched with ${state.match.otherUser.name}',
-            date: state.match.createdAt,
+            title: 'You matched with ${currentMatch.otherUser.name}',
+            date: currentMatch.createdAt,
             isUnlocked: true,
             isFirst: true,
           ),
           _MatchPhase(
-            title: state.match.paidAt == null
+            title: currentMatch.paidAt == null
                 ? 'You pay for your date'
                 : 'You paid for your date',
-            date: state.match.paidAt,
-            isActive: state.match.paidAt == null,
+            date: currentMatch.paidAt,
+            isActive: currentMatch.paidAt == null,
             isUnlocked: true,
-            onPressed: state.match.paidAt == null ? notifier.payForDate : null,
+            onPressed:
+                currentMatch.paidAt == null ? matchNotifier.payForDate : null,
           ),
           _MatchPhase(
-            title: state.match.paidAt == null
+            title: currentMatch.paidAt == null
                 ? 'Date is picked'
-                : state.match.plannedOn == null
+                : currentMatch.plannedOn == null
                     ? 'Pick a date'
                     : 'You picked a date',
-            date: state.match.availabilityGivenAt,
+            date: currentMatch.availabilityGivenAt,
             isActive:
-                state.match.paidAt != null && state.match.plannedOn == null,
-            isUnlocked: state.match.paidAt != null,
+                currentMatch.paidAt != null && currentMatch.plannedOn == null,
+            isUnlocked: currentMatch.paidAt != null,
             onPressed:
-                state.match.paidAt != null && state.match.plannedOn == null
-                    ? notifier.provideAvailabilityForDate
+                currentMatch.paidAt != null && currentMatch.plannedOn == null
+                    ? matchNotifier.provideAvailabilityForDate
                     : null,
           ),
           _MatchPhase(
-            title: state.match.plannedOn == null
+            title: currentMatch.plannedOn == null
                 ? 'Waiting on location reveal'
-                : state.match.confirmedAt == null
+                : currentMatch.confirmedAt == null
                     ? 'Confirm the date'
                     : 'The date is confirmed',
-            date: state.match.confirmedAt != null
-                ? DateTime(state.match.confirmedAt!)
-                : null,
-            isActive: state.match.plannedOn != null &&
-                state.match.confirmedAt == null,
-            isUnlocked: state.match.plannedOn != null,
-            onPressed: state.match.plannedOn != null
+            date: currentMatch.confirmedAt,
+            isActive: currentMatch.plannedOn != null &&
+                currentMatch.confirmedAt == null,
+            isUnlocked: currentMatch.plannedOn != null,
+            onPressed: currentMatch.plannedOn != null
                 ? () => _showConfirmDialog(
                       context,
-                      notifier.confirmPresenceForDate,
+                      matchNotifier.confirmPresenceForDate,
                       'Lorem ipsum dolar sit amet.',
                     )
                 : null,
           ),
           _MatchPhase(
-            title: state.match.plannedOn?.isAfter(DateTime.now()) == true
+            title: currentMatch.plannedOn?.isAfter(DateTime.now()) == true
                 ? 'You’re done!'
                 : 'The day of the date',
-            date: state.match.plannedOn,
-            isUnlocked: state.match.confirmedAt != null,
+            date: currentMatch.plannedOn,
+            isUnlocked: currentMatch.confirmedAt != null,
             isLast: true,
           ),
         ])

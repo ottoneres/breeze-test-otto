@@ -48,7 +48,7 @@ class Match {
   final DateTime? availabilityGivenAt;
 
   /// Set if confirmed to the moment of confirming.
-  final int? confirmedAt;
+  final DateTime? confirmedAt;
 
   factory Match.fromJson(Map<String, dynamic> json) => _$MatchFromJson(json);
 
